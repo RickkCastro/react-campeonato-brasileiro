@@ -8,35 +8,48 @@ import { ITeam } from '@/types/ITeam';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import path from 'path';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-export default function Home() {
+const FIRST_YEAR = 2003;
+const FINAL_YEAR = 2015;
+
+const years = Array.from({ length: FINAL_YEAR - FIRST_YEAR + 1 }).map((_, index) => {
+  return (FIRST_YEAR + index).toString();
+});
+
+export async function getStaticProps(context: any) {
+  const { params } = context;
+  const BASE_URL = 'https://rickkcastro-campeonato-br-backend.glitch.me';
+
+  const data = await fetch(`${BASE_URL}/${params.year}`).then(res => res.json());
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  const paths = years.map(y => ({ params: { year: y } }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export default function TeamsTablePage(props: any) {
   const router = useRouter();
   const { year } = router.query;
 
-  const years = [
-    '2003',
-    '2004',
-    '2005',
-    '2006',
-    '2007',
-    '2008',
-    '2009',
-    '2010',
-    '2011',
-    '2012',
-    '2013',
-    '2014',
-    '2015',
-  ];
+  const { data } = props;
 
   function changeYear(year: string) {
     router.push(`/${year}`);
   }
-
-  const BASE_URL = 'https://rickkcastro-campeonato-br-backend.glitch.me';
-  const { data, error, isLoading } = useSWR(`${BASE_URL}/${year}`, fetcher);
 
   const [teams, setTeams] = useState<ITeam[]>([]);
 
@@ -95,11 +108,6 @@ export default function Home() {
 
     setTeams(newTeams);
   }, [data]);
-
-  if (error) return <div>falhou em carregar</div>;
-  if (isLoading) return <div>carregando...</div>;
-
-  console.log(teams);
 
   return (
     <div>
