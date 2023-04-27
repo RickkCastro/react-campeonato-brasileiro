@@ -35,7 +35,7 @@ export default function Home() {
     router.push(`/${year}`);
   }
 
-  const BASE_URL = 'http://localhost:3001';
+  const BASE_URL = 'rickkcastro-campeonato-br-backend.glitch.me';
   const { data, error, isLoading } = useSWR(`${BASE_URL}/${year}`, fetcher);
 
   const [teams, setTeams] = useState<ITeam[]>([]);
