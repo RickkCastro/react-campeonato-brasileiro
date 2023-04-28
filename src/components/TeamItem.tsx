@@ -19,18 +19,18 @@ export default function TeamItem(props: ITeam) {
 
   return (
     <tr>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{colocacao}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">
+      <td className="text-sm font-medium w-10 py-4">{colocacao}</td>
+      <td className="text-sm font-medium">
         <Image alt={img} src={`/img/${img}.png`} width={25} height={25} />
       </td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{nome}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{total_pontos}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{total_vitorias}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{total_empates}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{total_derrotas}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{total_gols_marcados}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{total_gols_sofridos}</td>
-      <td className="p-4 text-sm font-medium whitespace-nowrap">{saldo_gols}</td>
+      <td className="text-sm font-medium w-20">{nome}</td>
+      <td className="text-sm font-medium w-10">{total_pontos}</td>
+      <td className="text-sm font-medium w-10">{total_vitorias}</td>
+      <td className="text-sm font-medium w-10">{total_empates}</td>
+      <td className="text-sm font-medium w-10">{total_derrotas}</td>
+      <td className="text-sm font-medium w-10">{total_gols_marcados}</td>
+      <td className="text-sm font-medium w-10">{total_gols_sofridos}</td>
+      <td className="text-sm font-medium w-10">{saldo_gols}</td>
     </tr>
   );
 }
